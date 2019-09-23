@@ -2,19 +2,18 @@ import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
 
 // Páginas / Telas
-import PageMain from './pages/main';
+import PageIndex from './pages/index';
 import PageNote from './pages/note';
 
 const AppNavigator = createStackNavigator({
-    Home: PageMain,
+    Home: PageIndex,
     Note: PageNote
 },{
-    initialRoute: 'Home',
     defaultNavigationOptions: {
         headerStyle: {
-            backgroundColor: '#f00',
+            backgroundColor: '#4B0CE8',
         },
-        headerTintColor: '#ddd'
+        headerTintColor: '#fff'
     }
 });
 
