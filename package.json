@@ -5,11 +5,13 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "postinstall": "npx jetify"
   },
   "dependencies": {
     "react": "16.8.6",
     "react-native": "0.60.5",
+    "react-native-gesture-handler": "^1.4.1",
     "react-navigation": "^4.0.7",
     "react-navigation-stack": "^1.8.1"
   },
@@ -17,11 +19,15 @@
     "@babel/core": "7.6.0",
     "@babel/runtime": "7.6.0",
     "@react-native-community/eslint-config": "0.0.3",
+    "add": "^2.0.6",
     "babel-jest": "24.9.0",
     "eslint": "6.4.0",
     "jest": "24.9.0",
+    "jetifier": "^1.6.4",
     "metro-react-native-babel-preset": "0.54.1",
-    "react-test-renderer": "16.8.6"
+    "or": "^0.2.0",
+    "react-test-renderer": "16.8.6",
+    "yarn": "^1.17.3"
   },
   "jest": {
     "preset": "react-native"
