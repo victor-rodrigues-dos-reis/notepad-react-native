@@ -1,25 +1,71 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet, AsyncStorage} from 'react-native';
 
 export default class Main extends Component {
+    // Título que aparecerá no header da tela
     static navigationOptions = {
         title: "Notepad"
     }
 
+    state = {
+        data: null
+    }
+
+    // Código que será executado assim que o component for montado
+    componentDidMount() {
+        this.allNotes();
+    }
+    
+    // Pega todos as anotações (caso houver)
+    allNotes = async () => {
+        try {
+            let data = await AsyncStorage.getItem('@ReactNotes:notes');
+
+            if (data != null) {
+                const json = JSON.parse(data);
+                this.setState({data: json});
+            }
+        }
+        catch (error) {
+            //
+        }
+    }
+
+    // Apresenta as anotações de acordo com os dados vindo da FlatList
+    renderItem = ({item}) => (
+        <TouchableOpacity style={styles.noteButton}>
+            <View style={styles.noteContainer}>
+                <Text style={styles.noteTitle}>{item.title}</Text>
+                <Text style={styles.noteDescription}>{item.message}</Text>
+            </View>
+        </TouchableOpacity>
+    );
+    
+    // Apresenta essa tela quando o "this.state.data" estiver vazio
+    emptyDataList = () => (
+        <View style={styles.containerNoNotes}>
+            <Text style={styles.textNoNotes}>Não há Anotações</Text>
+        </View>
+    );
+
+    // Apresentação da tela
     render() {
         return (
             <View style={styles.container}>
-                <TouchableOpacity style={styles.noteButton}>
-                    <View style={styles.noteContainer}>
-                        <Text style={styles.noteTitle}>Título</Text>
-                        <Text style={styles.noteDescription}>Descrição</Text>
-                    </View>
-                </TouchableOpacity>
+                <FlatList
+                    renderItem={this.renderItem}
+                    contentContainerStyle={styles.list}
+                    data={this.state.data}
+                    keyExtractor={(item) => item.key.toString()}
+                    ListEmptyComponent={this.emptyDataList}
+                />
 
                 <TouchableOpacity 
                     style={styles.actionButton}
                     onPress={() => {
-                        this.props.navigation.navigate("Note");
+                        this.props.navigation.navigate("Note",{
+                            noteKey: new Date().getTime()
+                        });
                     }}
                 >
                     <Text style={styles.actionButtonText}>+</Text>
@@ -29,6 +75,7 @@ export default class Main extends Component {
     };
 };
 
+// Estilos dos componentes
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -36,8 +83,13 @@ const styles = StyleSheet.create({
         padding: 10
     },
 
-    noteButton: {
+    list: {
+        padding: 20,
+        flex: 1
+    },
 
+    noteButton: {
+        marginVertical: 10
     },
 
     noteContainer: {
@@ -75,5 +127,17 @@ const styles = StyleSheet.create({
         fontSize: 50,
         fontWeight: 'bold',
         color: '#fff',
+    },
+
+    containerNoNotes: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: 'center'
+    },
+
+    textNoNotes: {
+        color: '#ccc',
+        fontSize: 35
     }
 });
