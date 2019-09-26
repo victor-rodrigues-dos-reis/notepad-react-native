@@ -15,11 +15,19 @@ export default class Note extends Component {
 
     // Código que será executado assim que o component for montado
     async componentDidMount() {
-        // const {navigation} = this.props;
-        // const noteKey = navigation.getParam('noteKey', 'NO-KEY');
+        // Pega os parâmetros vindo tela Home
+        const {navigation} = this.props;
+        const note = navigation.getParam('note', 'NO-UPDATE');
 
-        await this.initNoteStorage();
-        await this.setNote();
+        // Verifica se está sendo criado uma nova anotação
+        // ou está sendo atualizado uma existente
+        if (note == 'NO-UPDATE') {
+            await this.initNoteStorage();
+            await this.setNote();
+        }
+        else {
+            this.setState(note)
+        }
     }
 
     // Cria o local onde será guardado as anotações (caso não esteja criado)
@@ -67,15 +75,20 @@ export default class Note extends Component {
 
     // Apresentação da tela
     render() {
+        const {navigation} = this.props;
+        const note = navigation.getParam('note', 'NO-UPDATE');
+
         return (
             <View style={styles.container}>
                 <TextInput 
                     style={styles.inputTitle}
-                    onChangeText={(text) => this.updateNote('title', text)}/>
+                    onChangeText={(text) => this.updateNote('title', text)}
+                    defaultValue={this.state.title}/>
                 <TextInput 
                     style={styles.inputMessage} 
                     multiline={true}
-                    onChangeText={(text) => this.updateNote('message', text)}/>
+                    onChangeText={(text) => this.updateNote('message', text)}
+                    defaultValue={this.state.message}/>
             </View>
         )
     }

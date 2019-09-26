@@ -33,7 +33,9 @@ export default class Main extends Component {
 
     // Apresenta as anotações de acordo com os dados vindo da FlatList
     renderItem = ({item}) => (
-        <TouchableOpacity style={styles.noteButton}>
+        <TouchableOpacity
+        style={styles.noteButton}
+        onPress={() => {this.props.navigation.navigate('Note', {note: item})}}>
             <View style={styles.noteContainer}>
                 <Text style={styles.noteTitle}>{item.title}</Text>
                 <Text style={styles.noteDescription}>{item.message}</Text>
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
 
     list: {
         padding: 20,
-        flex: 1
+        flexGrow: 1
     },
 
     noteButton: {
