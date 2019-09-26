@@ -13,7 +13,16 @@ export default class Main extends Component {
 
     // Código que será executado assim que o component for montado
     componentDidMount() {
-        this.allNotes();
+        const { navigation } = this.props;
+
+        /*
+            Foi escolhido fazer desse jeito para que quando o usuário atualizar alguma nota e voltar para essa tela, ela já apresente as modificações feitas
+        */
+        // Cria um listener para verificar se essa tela está aberta
+        // Se sim, será carregado todas as notas
+        this.focusListener = navigation.addListener('didFocus', () => {
+            this.allNotes();
+        });
     }
     
     // Pega todos as anotações (caso houver)
