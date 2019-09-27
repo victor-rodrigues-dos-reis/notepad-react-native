@@ -40,6 +40,25 @@ export default class Main extends Component {
         }
     }
 
+    // Remove a anotação selecionada
+    removeNote = (key) => {
+        let notes = this.state.data;
+
+        const index = notes.map(function(note) { return note['key']; }).indexOf(key);
+
+        // Remove os dados da anotação do array
+        notes.splice(index, 1);
+
+        // Atualiza o state e o armazenamento local
+        if (notes.length != 0)
+            this.setState({data: notes});
+        else {
+            this.setState({data: null});
+        }
+
+        AsyncStorage.setItem('@ReactNotes:notes', JSON.stringify(notes));
+    }
+
     // Apresenta as anotações de acordo com os dados vindo da FlatList
     renderItem = ({item}) => (
         <TouchableOpacity
@@ -49,6 +68,12 @@ export default class Main extends Component {
                 <Text style={styles.noteTitle}>{item.title}</Text>
                 <Text style={styles.noteDescription}>{item.message}</Text>
             </View>
+
+            <TouchableOpacity 
+            style={styles.removeButton}
+            onPress={() => {this.removeNote(item.key)}}>
+                <Text style={styles.textRemoveButton}>X</Text>
+            </TouchableOpacity>
         </TouchableOpacity>
     );
     
@@ -106,6 +131,7 @@ const styles = StyleSheet.create({
     noteContainer: {
         backgroundColor: '#4B0CE8',
         padding: 10,
+        paddingRight: 40,
         paddingHorizontal: 15,
         borderRadius: 5,
     },
@@ -132,6 +158,22 @@ const styles = StyleSheet.create({
         width: 70,
         bottom: 10,
         right: 10
+    },
+
+    removeButton: {
+        backgroundColor: "#f00",
+        position: "absolute",
+        width: 30,
+        height: 30,
+        justifyContent: "center",
+        alignItems: "center",
+        top: 5,
+        right: 5,
+        borderRadius: 5
+    },
+    
+    textRemoveButton: {
+        color: "#fff",
     },
 
     actionButtonText: {
