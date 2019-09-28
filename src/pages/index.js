@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet, AsyncStorage} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet, AsyncStorage, Alert} from 'react-native';
 
 export default class Main extends Component {
     // Título que aparecerá no header da tela
@@ -59,6 +59,18 @@ export default class Main extends Component {
         AsyncStorage.setItem('@ReactNotes:notes', JSON.stringify(notes));
     }
 
+    // Apresenta perguntando se realmente deseja deletar a anotação
+    askWantRemoveNote = (key) => {
+        Alert.alert(
+            'Deletar anotação?',
+            "Deletando a anotação ela será permanentemente removida de seu celular.\nIsso não poderá ser desfeito.",
+            [
+                {text: 'Deletar', onPress: () => this.removeNote(key)},
+                {text: 'Cancelar'}
+            ]
+            )
+    }
+
     // Diminui a mensagem da anotação cortando uma parte dela
     minifyMessage = (message) => {
         // Verifica se a mensagem excede 100 caracteres
@@ -88,7 +100,7 @@ export default class Main extends Component {
 
                 <TouchableOpacity 
                 style={styles.removeButton}
-                onPress={() => {this.removeNote(item.key)}}>
+                onPress={() => {this.askWantRemoveNote(item.key)}}>
                     <Text style={styles.textRemoveButton}>X</Text>
                 </TouchableOpacity>
             </TouchableOpacity>
