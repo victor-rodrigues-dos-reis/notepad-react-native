@@ -4,7 +4,7 @@ import {View, TextInput, StyleSheet, AsyncStorage} from 'react-native';
 export default class Note extends Component {
     // Título que aparecerá no header da tela
     static navigationOptions = {
-        title: "Título"
+        title: "Criar Notas"
     }
 
     state = {
