@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList, TouchableOpacity, StyleSheet, AsyncStorage, Alert} from 'react-native';
+import {View, Text, FlatList, TouchableOpacity, StyleSheet, Alert} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Main extends Component {
     // Título que aparecerá no header da tela

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, TextInput, StyleSheet, AsyncStorage} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export default class Note extends Component {
     // Título que aparecerá no header da tela
