@@ -102,8 +102,8 @@ const styles = StyleSheet.create ({
     
     inputTitle: {
         fontSize: 23,
-        borderBottomColor: '#4B0CE8',
-        color: '#3408A3',
+        borderBottomColor: '#6b52ae',
+        color: '#6b52ae',
         borderBottomWidth: 1,
         margin: 10,
     },
@@ -111,6 +111,7 @@ const styles = StyleSheet.create ({
     inputMessage: {
         textAlignVertical: "top",
         color: '#333',
+        marginHorizontal: 10,
         fontSize: 15,
         flex: 1,
     }

@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
 
     noteContainer: {
-        backgroundColor: '#4B0CE8',
+        backgroundColor: '#6b52ae',
         padding: 10,
         paddingRight: 40,
         paddingHorizontal: 15,
@@ -140,6 +140,9 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
+        marginBottom: 10,
+        borderBottomWidth: 2,
+        borderColor: '#fff'
     },
 
     noteDescription: {
@@ -148,7 +151,9 @@ const styles = StyleSheet.create({
     },
 
     actionButton: {
-        backgroundColor: '#4B0CE8',
+        backgroundColor: '#6b52ae',
+        borderColor: "#eee",
+        borderWidth: 2,
         position: 'absolute',
         borderRadius: 40,
         justifyContent: 'center',
@@ -161,7 +166,7 @@ const styles = StyleSheet.create({
     },
 
     removeButton: {
-        backgroundColor: "#f00",
+        backgroundColor: "#43346E",
         position: "absolute",
         width: 30,
         height: 30,
@@ -169,11 +174,11 @@ const styles = StyleSheet.create({
         alignItems: "center",
         top: 5,
         right: 5,
-        borderRadius: 5
+        borderRadius: 5,
     },
     
     textRemoveButton: {
-        color: "#fff",
+        color: "#ddd",
     },
 
     actionButtonText: {
