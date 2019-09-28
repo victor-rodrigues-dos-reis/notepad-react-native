@@ -59,23 +59,41 @@ export default class Main extends Component {
         AsyncStorage.setItem('@ReactNotes:notes', JSON.stringify(notes));
     }
 
-    // Apresenta as anotações de acordo com os dados vindo da FlatList
-    renderItem = ({item}) => (
-        <TouchableOpacity
-        style={styles.noteButton}
-        onPress={() => {this.props.navigation.navigate('Note', {note: item})}}>
-            <View style={styles.noteContainer}>
-                <Text style={styles.noteTitle}>{item.title}</Text>
-                <Text style={styles.noteDescription}>{item.message}</Text>
-            </View>
+    // Diminui a mensagem da anotação cortando uma parte dela
+    minifyMessage = (message) => {
+        // Verifica se a mensagem excede 100 caracteres
+        if (message.length > 100) {
+            // Verifica se a mensagem tem quebra de linha
+            if (message.includes("\n"))
+                return message.split("\n")[0] + ' ...'
 
-            <TouchableOpacity 
-            style={styles.removeButton}
-            onPress={() => {this.removeNote(item.key)}}>
-                <Text style={styles.textRemoveButton}>X</Text>
+            return message.slice(0, 100) + '...'
+        }
+        
+        return message
+    }
+
+    // Apresenta as anotações de acordo com os dados vindo da FlatList
+    renderItem = ({item}) => {
+        const minifiedMessage = this.minifyMessage(item.message);
+
+        return (
+            <TouchableOpacity
+            style={styles.noteButton}
+            onPress={() => {this.props.navigation.navigate('Note', {note: item})}}>
+                <View style={styles.noteContainer}>
+                    <Text style={styles.noteTitle}>{item.title}</Text>
+                    <Text style={styles.noteDescription}>{minifiedMessage}</Text>
+                </View>
+
+                <TouchableOpacity 
+                style={styles.removeButton}
+                onPress={() => {this.removeNote(item.key)}}>
+                    <Text style={styles.textRemoveButton}>X</Text>
+                </TouchableOpacity>
             </TouchableOpacity>
-        </TouchableOpacity>
-    );
+        );
+    };
     
     // Apresenta essa tela quando o "this.state.data" estiver vazio
     emptyDataList = () => (
