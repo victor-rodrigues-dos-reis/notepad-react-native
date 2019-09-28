@@ -23,7 +23,6 @@ export default class Note extends Component {
         // ou está sendo atualizado uma existente
         if (note == 'NO-UPDATE') {
             await this.initNoteStorage();
-            await this.setNote();
         }
         else {
             this.setState(note)
@@ -58,6 +57,10 @@ export default class Note extends Component {
 
     // Atualiza a anotação no armazenamento local e no state sempre que for digitado algo
     updateNote = async (textInput, text) => {
+        // Verifica se a anotação já foi salva no armazenamento local
+        if (this.state.key == '')
+            await this.setNote();
+
         let notes = await AsyncStorage.getItem('@ReactNotes:notes');
         let key = this.state.key;
         notes = JSON.parse(notes);
