@@ -85,6 +85,7 @@ export default class Note extends Component {
             <View style={styles.container}>
                 <TextInput 
                     style={styles.inputTitle}
+                    maxLength={30}
                     onChangeText={(text) => this.updateNote('title', text)}
                     defaultValue={this.state.title}/>
                 <TextInput 
