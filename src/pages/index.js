@@ -64,7 +64,7 @@ export default class Main extends Component {
     askWantRemoveNote = (key) => {
         Alert.alert(
             'Deletar anotação?',
-            "Deletando a anotação ela será permanentemente removida de seu celular.\nIsso não poderá ser desfeito.",
+            "Deletando a anotação, ela será permanentemente removida de seu celular.\nIsto não poderá ser desfeito.",
             [
                 {text: 'Deletar', onPress: () => this.removeNote(key)},
                 {text: 'Cancelar'}
@@ -78,7 +78,7 @@ export default class Main extends Component {
         if (message.length > 100) {
             // Verifica se a mensagem tem quebra de linha
             if (message.includes("\n"))
-                return message.split("\n")[0] + ' ...'
+                return message.split("\n")[0].slice(0, 100) + ' ...'
 
             return message.slice(0, 100) + '...'
         }
